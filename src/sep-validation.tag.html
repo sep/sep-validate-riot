@@ -1,0 +1,36 @@
+﻿<sep-validation>
+    <ul if={ messages.length }
+        class="text-danger field-validation-error"
+        data-valmsg-for={ opts.key }
+    >
+        <li each={ message in messages }>
+            { parent.opts.label }{ message }.
+        </li>
+    </ul>
+
+    <style>
+        ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 0px;
+            margin-bottom: 10px;
+            margin-left: 13px;
+            margin-right: 0;
+            font-size: 16px;
+        }
+
+        sep-validation.validation-for-single-field ul {
+            margin: 0;
+            font-size: 14px;
+        }
+    </style>
+
+    <script>
+        this.messages = [];
+        this.setMessages = (messages) => {
+            this.messages = messages;
+            this.update();
+        };
+        this.reset = () => this.setMessages([]);
+    </script>
+</sep-validation>

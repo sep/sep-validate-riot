@@ -1,0 +1,71 @@
+﻿<sep-select>
+    <div class="form-group">
+        <label for={ opts.uid }>
+            { opts.label }
+        </label>
+        <select
+            ref="select"
+            class="selectpicker"
+            id={ opts.uid }
+            name={ opts.key }
+            multiple={ opts.multiple }
+            >
+            <option
+                each={ option in opts.options }
+                value={ option[parent.opts.key_property] }
+                selected={ parent.isSelected(option) }>
+                { option[parent.opts.value_property] }
+                ( { option[parent.opts.key_property] } )
+            </option>
+        </select>
+        <sep-validation key={ validationKey() } class="validation-for-single-field" label="This" />
+    </div>
+
+    <style scoped>
+        select {
+            width: 100%;
+        }
+
+        label {
+            margin-bottom: 0;
+        }
+
+        .has-error .bootstrap-select .dropdown-toggle {
+            border-width: 3px;
+        }
+
+        sep-select:last-child .form-group {
+            margin: 0;
+        }
+    </style>
+
+    <script>
+        this.validationKey = () => {
+            return this.opts.key.endsWith("[]")
+                ? this.opts.key.slice(0, this.opts.key.length - 2)
+                : this.opts.key;
+        };
+        this.isSelected = (option) => {
+            var val = option[this.opts.key_property];
+            return $.isArray(this.opts.value)
+                ? this.opts.value.includes(val)
+                : this.opts.value == val;
+        };
+        this.syncValue = () => {
+            this.opts.value = this.opts.riotValue || (this.opts.multiple ? [] : '');
+        };
+        this.on('before-mount', () => {
+            this.opts.uid = Math.random().toString(16).slice(2);
+            this.opts.key_property = this.opts.key_property || "Key";
+            this.opts.value_property = this.opts.value_property || "Value";
+            this.syncValue();
+        });
+        this.on('mount', () => {
+            $(this.refs.select).selectpicker(this.opts.select_picker_opts || {});
+        });
+        this.on('update', () => this.syncValue());
+        this.on('updated', () => {
+            $(this.refs.select).selectpicker('render');
+        });
+    </script>
+</sep-select>

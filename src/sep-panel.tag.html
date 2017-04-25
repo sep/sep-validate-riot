@@ -1,0 +1,72 @@
+﻿<sep-panel>
+    <div class={ panelClasses() }>
+        <div class="panel-heading" if={ opts.header }>
+            <!--<img class="panel-icon" src="/images/error-icon.svg" />-->
+            <div class="panel-title">{ opts.header }</div>
+        </div>
+        <div class="panel-body">
+            <yield/>
+        </div>
+    </div>
+
+    <style scoped>
+        .panel-heading {
+            height: 44px;
+        }
+
+        .panel-title {
+            display: inline-block;
+            height: 100%;
+            vertical-align: middle;
+        }
+
+        .panel-icon {
+            display: none;
+            margin-right: 10px;
+        }
+
+        .panel-danger .panel-icon {
+            display: inline-block;
+            height: 100%;
+            vertical-align: middle;
+        }
+
+        .panel-primary > .panel-heading {
+            font-weight: 600;
+        }
+
+        .panel-body > button {
+            margin-bottom: 15px;
+        }
+
+        .panel.sticky {
+            position: fixed;
+            right: 30px;
+            top: 15px;
+            z-index: 1000;
+            border: #bbbbbb solid 2px;
+        }
+
+        .panel.first-on-page {
+            margin-top: 21px;
+        }
+
+        .alert {
+            margin-top: 21px;
+            margin-bottom: 0;
+            max-width: 275px;
+        }
+
+        .alert .alert-link {
+            text-decoration: none;
+        }
+
+        .alert .alert-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+
+    <script>
+        this.panelClasses = () => "panel " + (this.opts.panelClasses || "panel-default");
+    </script>
+</sep-panel>

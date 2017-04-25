@@ -1,0 +1,36 @@
+{
+  "name": "sep-validate-riot",
+  "authors": [
+    "Thom Root <tlroot@sep.com>"
+  ],
+  "description": "riot tags for json web forms with validation and help text",
+  "main": "",
+  "keywords": [
+    "json",
+    "web",
+    "forms",
+    "riot",
+    "validation"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/sep/sep-validate-riot",
+  "private": false,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/sep/sep-validate-riot.git"
+  }
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "bootstrap-select": "^1.12.2",
+    "jquery": "^3.2.1",
+    "jquery.serializeJSON": "^2.8.1",
+    "riot": "^3.4.3"
+  }
+}
