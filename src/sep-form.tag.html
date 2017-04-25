@@ -49,7 +49,7 @@
                 success: this.processValidationResponse
             });
         };
-        this.downloadFile = () => {
+        this.downloadFile = (event) => {
             event.preventUpdate = true;
             event.preventDefault();
             var data = this.serialize();

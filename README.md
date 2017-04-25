@@ -11,7 +11,14 @@ Soon, though:
 
 ## Tags ##
 
-Here are some tags you can use
+Here are some tags you can use:
+
+  - [sep-panel](#sep-panel)
+  - [sep-form](#sep-form)
+  - [sep-text-input](#sep-text-input)
+  - [sep-select](#sep-select)
+  - [sep-validation](#sep-validation)
+
 
 ### <a name="sep-panel"></a>sep-panel ##
 
@@ -27,7 +34,9 @@ A pithier bootstrap panel
 
 A way to serialize and validate some JSON
 
-    <sep-form>
+    <sep-form
+      validationUrl=""  // The url to post the form's content as JSON to recieve a [ValidationStatus](https://github.com/sep/SEPValidationEngine/blob/master/SepValidation/ValidationStatus.cs)
+    >
       Put your form's content here.
     </sep-form>
 
@@ -36,7 +45,7 @@ A way to serialize and validate some JSON
 A text input with a label, help-text, and validation
 
     <sep-input
-      key=""        // Required, should be a [query.serializeJSON](https://github.com/marioizquierdo/jquery.serializeJSON)-compatible name
+      key=""        // Required, should be a [query.serializeJSON](https://github.com/marioizquierdo/jquery.serializeJSON) -compatible name
       value=""      // Required, should be the riotjs binding to your data object
       label=""      // The text for the control's label
       maxlength=""  // The maximum input length
@@ -58,7 +67,7 @@ A pithier bootstrap-select input, with a label
       select_picker_opts="" // Pass-through for [bootstrap-select](https://github.com/silviomoreto/bootstrap-select) options
     />
 
-###<a name="sep-validation"></a>sep-validation ###
+### <a name="sep-validation"></a>sep-validation ###
 
 A display area for validation messages
 
