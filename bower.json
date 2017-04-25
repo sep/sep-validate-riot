@@ -25,7 +25,7 @@
   "repository": {
     "type": "git",
     "url": "git://github.com/sep/sep-validate-riot.git"
-  }
+  },
   "dependencies": {
     "bootstrap": "^3.3.7",
     "bootstrap-select": "^1.12.2",
