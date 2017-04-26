@@ -14,6 +14,7 @@ Soon, though:
 Here are some tags you can use:
 
   - [sep-panel](#sep-panel)
+  - [sep-alert](#sep-alert)
   - [sep-form](#sep-form)
   - [sep-text-input](#sep-text-input)
   - [sep-select](#sep-select)
@@ -30,12 +31,23 @@ A pithier bootstrap panel
       Put your panel's content here.
     </sep-panel>
 
+### <a name="sep-alert"></a>sep-alert ##
+
+A pithier bootstrap alert
+
+    <sep-alert
+      alert-classes=""  // Additional classes to apply. If omitted, alert-info will be applied
+      dismissable=""    // If omitted or truthy, the alert can be closed
+    >
+      Put your panel's content here.
+    </sep-alert>
+
 ### <a name="sep-form"></a>sep-form ###
 
 A way to serialize and validate some JSON
 
     <sep-form
-      validationUrl=""  // The url to post the form's content as JSON to recieve a [ValidationStatus](https://github.com/sep/SEPValidationEngine/blob/master/SepValidation/ValidationStatus.cs)
+      validation-url=""  // The url to post the form's content as JSON to recieve a [ValidationStatus](https://github.com/sep/SEPValidationEngine/blob/master/SepValidation/ValidationStatus.cs)
     >
       Put your form's content here.
     </sep-form>

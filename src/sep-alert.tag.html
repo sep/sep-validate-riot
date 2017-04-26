@@ -1,0 +1,27 @@
+﻿<sep-alert>
+  <div class={ alertClasses() } refs="alert">
+    <span class="close"
+      onclick={ dismiss }
+      if={ dismissable() }
+    >
+      &times;
+    </span>
+    <yield/>
+  </div>
+
+  <script>
+      this.alertClasses = () => {
+        return "alert "
+          + (dismissable() && dismissed ? "hidden " : "")
+          + (this.opts.alertClasses || "alert-info");
+      };
+      this.dismissable = () => {
+        return !this.opts.hasOwnProperty("dismissable")
+          || this.opts.dismissable;
+      };
+      this.dismiss = () => (this.dismissed = true);
+      this.on("mount", () => {
+          $(this.refs.alert).alert();
+      });
+  </script>
+</sep-panel>

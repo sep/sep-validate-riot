@@ -1,72 +1,80 @@
 ﻿<sep-text-input>
-    <div class="form-group"
-        title={ opts.helpText }
-    >
-        <label for={ opts.uid }
-               class="control-label"
-        >
-            { opts.label }
-        </label>
-        <input type="text"
-               id={ opts.uid }
-               name={ opts.key }
-               value={ opts.riotValue }
-               maxlength={ opts.maxlength }
-               class="form-control" />
-        <div class="help-text" for={ opts.uid }></div>
-        <sep-validation key={ opts.key } class="validation-for-single-field" label="This" />
-    </div>
+  <div ref="formGroup"
+    class={
+      form-group: true,
+      has-error: isValid()
+    }
+    title={ opts.helpText }
+  >
+    <label for={ opts.uid } class="control-label">
+      { opts.label }
+    </label>
+    <input type="text"
+      id={ opts.uid }
+      name={ opts.key }
+      value={ opts.riotValue }
+      maxlength={ opts.maxlength }
+      class="form-control" />
+    <div class="help-text" for={ opts.uid }></div>
+    <sep-validation
+      ref="validation"
+      key={ opts.key }
+      style={
+        margin: 0;
+        font-size: 14px;
+      }
+      label="This" />
+  </div>
 
-    <style scoped>
-        input {
-            width: 100%;
-        }
+  <style scoped>
+    input {
+      width: 100%;
+    }
 
-        label {
-            margin-bottom: 0;
-        }
+    label {
+      margin-bottom: 0;
+    }
 
-        .has-error .form-control {
-            border-width: 3px;
-        }
+    .has-error .form-control {
+      border-width: 3px;
+    }
 
-        sep-text-input:last-child .form-group {
-            margin: 0;
-        }
+    sep-text-input:last-child .form-group {
+      margin: 0;
+    }
 
-        .tooltip, .tooltip.bottom {
-            position: static !important; /* to override the position:relative bootstrap puts on the element itself */
-            color: white;
-            width: 100%;
-            margin: 0;
-            padding: 0;
-        }
+    .tooltip, .tooltip.bottom {
+      position: static !important; /* to override the position:relative bootstrap puts on the element itself */
+      width: 100%;
+      margin: 0;
+      padding: 0;
+    }
 
-        .tooltip-arrow {
-            display: none;
-        }
+    .tooltip-arrow {
+      display: none;
+    }
 
-        .tooltip-inner {
-            background-color: #272B30;
-            max-width: 100%;
-            text-align: left;
-        }
-    </style>
+    .tooltip-inner {
+      max-width: 100%;
+      text-align: left;
+    }
+  </style>
 
-    <script>
-        this.on('before-mount', () => {
-            this.opts.uid = Math.random().toString(16).slice(2);
+  <script>
+    this.isValid = () => this.refs.validation.isValid();
+    this.on('before-mount', () => {
+      this.uid = Math.random().toString(16).slice(2);
+    });
+    this.on('mount', () => {
+      if (this.opts.helpText) {
+        this.refs.formGroup.tooltip({
+          animation: false,
+          container: ".help-text[for='" + this.uid + "']",
+          html: true,
+          placement: 'bottom',
+          trigger: 'focus'
         });
-        this.on('mount', () => {
-            if (this.opts.helpText) {
-                $(this.root).find("div").tooltip({
-                    animation: false,
-                    container: ".help-text[for='" + this.opts.uid + "']",
-                    html: true,
-                    placement: 'bottom',
-                    trigger: 'focus'
-                });
-            }
-        });
-    </script>
+      }
+    });
+  </script>
 </sep-text-input>

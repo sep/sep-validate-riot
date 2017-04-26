@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="18px" height="23px" viewBox="0 0 18 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.1 (39012) - http://www.bohemiancoding.com/sketch -->
+    <title>Error Icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Error-Icon" fill="#FFFFFF">
+            <g id="noun_708235_C8C8C8-Copy">
+                <g id="Group">
+                    <path d="M15.7875,15.45 L2.2125,15.45 C0.975,15.45 0,16.05 0,17.2875 C0,18.525 0.975,19.125 2.2125,19.125 L15.7875,19.125 C17.025,19.125 18,18.525 18,17.2875 C18,16.0875 17.025,15.45 15.7875,15.45 Z" id="Shape"></path>
+                    <path d="M7.125,20.325 C7.125,21.375 7.95,22.2 9,22.2 C10.05,22.2 10.875,21.375 10.875,20.325 L10.875,19.875 L7.125,19.875 L7.125,20.325 Z" id="Shape"></path>
+                    <path d="M15,8.8875 C15,6.1125 13.125,3.7875 10.575,3.1125 L7.3875,3.1125 C4.875,3.7875 3,6.1125 3,8.8875 L3,14.7375 L15,14.7375 L15,8.8875 Z" id="Shape"></path>
+                    <path d="M10.575,1.9125 C10.575,0.8625 10.05,0.0375 9,0.0375 C7.95,0.0375 7.425,0.8625 7.425,1.9125 L7.425,2.3625 L10.575,2.3625 L10.575,1.9125 L10.575,1.9125 Z" id="Shape"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
