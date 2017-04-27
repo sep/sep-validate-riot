@@ -21,10 +21,20 @@
   </style>
 
   <script>
-      this.messages = [];
-      this.isValid = () => this.messages && this.messages.length;
-      this.setMessages = (messages) => {
-        this.messages = messages;
-      };
+    this.messages = [];
+    this.isValid = () => {
+      return this.messages && !this.messages.length;
+    }
+    this.sepFormTag = () => {
+      var parent = this.parent;
+      while (parent) {
+        if (parent.root.tagName.toLowerCase() == "sep-form")
+          return parent;
+        parent = parent.parent
+      }
+    }
+    this.on("before-mount", () => {
+      this.sepFormTag().registerValidation(this.opts.key.split(":")[0], this);
+    });
   </script>
 </sep-validation>

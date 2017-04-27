@@ -1,108 +1,37 @@
 ﻿<sep-form>
-  <form ref="form"
-    onsubmit="{ opts.onsubmit || noop }"
-    onreset="{ opts.onreset || noop }"
-  >
+  <form>
     <yield/>
   </form>
 
   <script>
-    this.freshData = () => ({ });
     this.addTo = (property, value) => {
-      return () => this.data[property].push(value || {});
+      return (event) => {
+        event.preventUpdate = true;
+        this.data[property].push(value || {})
+        this.update();
+      };
     };
     this.removeFrom = (property) => {
-      return ((event) => {
+      return (event) => {
+        event.preventUpdate = true;
         this.data[property].splice(event.item.index, 1);
         this.update();
-      });
-    };
-    this.fileUploaded = (event) => {
-        event.preventUpdate = true;
-        var localFile = event.target.files[0];
-        var reader = new FileReader();
-        reader.onload = (read) => {
-            var data = JSON.parse(read.target.result);
-            data.filename = localFile.name;
-            this.setData(data);
-            this.update();
-        };
-        reader.readAsText(localFile);
-        event.target.value = null;
+      }
     };
     this.serialize = (serializeJsonOptions) => {
-      var options = Object.assign(serializeJsonOptions || {}, {
-        useIntKeysAsArrayIndex: true,
-        customTypes: {
-          number: (strValue) => { return strValue == "" ? null : Number(strValue); }
-        }
-      });
-      return $(this.refs.form).find('input, select').serializeJSON(options);
+      return $('input, select', this.root).serializeJSON(serializeJsonOptions || {});
     };
-    this.validate = (event) => {
-      event.preventUpdate = true;
-      this.removeValidations();
-      this.revalidate = "Revalidate";
-      $.ajax({
-        type: "POST",
-        url: this.opts.validationUrl,
-        dataType: "json",
-        contentType: "application/json; charset=utf-8",
-        data: JSON.stringify(this.serialize()),
-        success: this.processValidationResponse
-      });
-    };
-    this.downloadFile = (event) => {
-      event.preventUpdate = true;
-      event.preventDefault();
-      var data = this.serialize();
-      var filename = data.filename || "my";
-      if (!filename.toLowerCase().endsWith(".json")) {
-        filename += ".json";
-      }
-      delete data.filename;
-      var blob = new Blob([JSON.stringify(data, null, "\t")]);
-      if (window.navigator.msSaveOrOpenBlob) {
-        window.navigator.msSaveOrOpenBlob(blob, filename);
-      } else {
-        var link = document.createElement('a');
-        link.href = window.URL.createObjectURL(blob);
-        link.download = filename;
-        link.click();
-      }
-      return false;
-    };
-    this.setData = (data) => {
-      this.data = Object.assign(this.freshData(), data || {});
-    };
-    this.reset = () => this.setData();
-    this.processValidationResponse = (response) => {
-      $.each(Object.keys(this.validations), (index, key) => {
-        this.validations[key].setMessages(errorsByKey[key] || []);
-      });
-      this.update();
-    };
-    this.scrollToFirstValidationError = (e) => {
-      e.preventDefault();
-      e.preventUpdate = true;
-      $('html, body').animate({
-          scrollTop: $(".panel-danger").offset().top - $(".sticky").outerHeight() - 30
-      }, 750);
-      return false;
-    };
-    this.on("before-mount", () => {
-      this.data = this.freshData();
-      this.validations = {};
-    });
-    this.on("mount", () => {
-      $("sep-validation", this.root).each((index, validation) => {
-        this.validations[validation._tag.opts.key] = validation._tag;
-      });
-    });
-    this.noop = (e) => {
-      e.preventDefault();
-      e.preventUpdate = true;
-      return false;
+    this.registerValidation = (key, validationTag) => {
+      this.validationTags[key] = validationTag;
     }
+    this.on("before-mount", () => {
+      this.data = (this.opts.initialValue || {});
+      this.validationTags = {};
+    });
+    this.on("update", () => {
+      $.each(this.validationTags, (key, validationTag) => {
+        validationTag.messages = (this.opts.validationMessages || {})[key] || [];
+      });
+    });
   </script>
 </sep-form>

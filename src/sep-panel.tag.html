@@ -41,12 +41,7 @@
 
   <script>
     this.panelClasses = () => {
-      return "panel "
-        + (this.childrenInvalid() ? "panel-danger " : "")
-        + (this.opts.panelClasses || "panel-default");
-    };
-    this.childrenInvalid = () => {
-      return false;
+      return "panel " + (this.opts.panelClasses || "panel-default");
     };
   </script>
 </sep-panel>

@@ -2,7 +2,7 @@
   <div ref="formGroup"
     class={
       form-group: true,
-      has-error: isValid()
+      has-error: !isValid()
     }
     title={ opts.helpText }
   >
@@ -18,11 +18,7 @@
     <div class="help-text" for={ opts.uid }></div>
     <sep-validation
       ref="validation"
-      key={ opts.key }
-      style={
-        margin: 0;
-        font-size: 14px;
-      }
+      key={ opts.key.split(":")[0] }
       label="This" />
   </div>
 
@@ -61,13 +57,13 @@
   </style>
 
   <script>
-    this.isValid = () => this.refs.validation.isValid();
+    this.isValid = () => !this.refs.validation || this.refs.validation.isValid();
     this.on('before-mount', () => {
       this.uid = Math.random().toString(16).slice(2);
     });
     this.on('mount', () => {
       if (this.opts.helpText) {
-        this.refs.formGroup.tooltip({
+        $(this.refs.formGroup).tooltip({
           animation: false,
           container: ".help-text[for='" + this.uid + "']",
           html: true,
