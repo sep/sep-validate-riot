@@ -11,7 +11,7 @@ riot.tag2('sep-alert', '<div class="{alertClasses()}"> <span class="close" oncli
         this.dismiss = () => (this.dismissed = true);
 });
 
-riot.tag2('sep-form', '<form> <yield></yield> </form>', '', '', function(opts) {
+riot.tag2('sep-form', '<form ref="form"> <yield></yield> </form>', '', '', function(opts) {
     this.addTo = (property, value) => {
       return (event) => {
         event.preventUpdate = true;
@@ -32,10 +32,14 @@ riot.tag2('sep-form', '<form> <yield></yield> </form>', '', '', function(opts) {
     this.registerValidation = (key, validationTag) => {
       this.validationTags[key] = validationTag;
     }
-    this.on("before-mount", () => {
+    this.reset = () => {
+      if (this.refs.form) {
+        this.refs.form.reset();
+      }
       this.data = (this.opts.initialValue || {});
       this.validationTags = {};
-    });
+    };
+    this.on("before-mount", this.reset);
     this.on("update", () => {
       $.each(this.validationTags, (key, validationTag) => {
         validationTag.messages = (this.opts.validationMessages || {})[key] || [];

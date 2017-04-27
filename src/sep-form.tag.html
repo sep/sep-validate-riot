@@ -1,5 +1,5 @@
 ﻿<sep-form>
-  <form>
+  <form ref="form">
     <yield/>
   </form>
 
@@ -24,10 +24,14 @@
     this.registerValidation = (key, validationTag) => {
       this.validationTags[key] = validationTag;
     }
-    this.on("before-mount", () => {
+    this.reset = () => {
+      if (this.refs.form) {
+        this.refs.form.reset();
+      }
       this.data = (this.opts.initialValue || {});
       this.validationTags = {};
-    });
+    };
+    this.on("before-mount", this.reset);
     this.on("update", () => {
       $.each(this.validationTags, (key, validationTag) => {
         validationTag.messages = (this.opts.validationMessages || {})[key] || [];
