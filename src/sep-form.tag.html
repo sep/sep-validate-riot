@@ -4,6 +4,7 @@
   </form>
 
   <script>
+    this.validationTags = {};
     this.addTo = (property, value) => {
       return (event) => {
         event.preventUpdate = true;
@@ -29,7 +30,6 @@
         this.refs.form.reset();
       }
       this.data = (this.opts.initialValue || {});
-      this.validationTags = {};
     };
     this.on("before-mount", this.reset);
     this.on("update", () => {

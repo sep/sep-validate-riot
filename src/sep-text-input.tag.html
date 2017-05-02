@@ -6,16 +6,16 @@
     }
     title={ opts.helpText }
   >
-    <label for={ opts.uid } class="control-label">
+    <label for={ uid } class="control-label">
       { opts.label }
     </label>
     <input type="text"
-      id={ opts.uid }
+      id={ uid }
       name={ opts.key }
       value={ opts.riotValue }
       maxlength={ opts.maxlength }
       class="form-control" />
-    <div class="help-text" for={ opts.uid }></div>
+    <div class="help-text" for={ uid }></div>
     <sep-validation
       ref="validation"
       key={ opts.key.split(":")[0] }
