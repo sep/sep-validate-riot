@@ -12,6 +12,7 @@ riot.tag2('sep-alert', '<div class="{alertClasses()}"> <span class="close" oncli
 });
 
 riot.tag2('sep-form', '<form ref="form"> <yield></yield> </form>', '', '', function(opts) {
+    this.validationTags = {};
     this.addTo = (property, value) => {
       return (event) => {
         event.preventUpdate = true;
@@ -37,7 +38,6 @@ riot.tag2('sep-form', '<form ref="form"> <yield></yield> </form>', '', '', funct
         this.refs.form.reset();
       }
       this.data = (this.opts.initialValue || {});
-      this.validationTags = {};
     };
     this.on("before-mount", this.reset);
     this.on("update", () => {
@@ -83,7 +83,7 @@ riot.tag2('sep-select', '<div class="form-group"> <label for="{opts.uid}"> {opts
         });
 });
 
-riot.tag2('sep-text-input', '<div ref="formGroup" class="{form-group: true,       has-error: !isValid()}" title="{opts.helpText}"> <label for="{opts.uid}" class="control-label"> {opts.label} </label> <input type="text" id="{opts.uid}" name="{opts.key}" riot-value="{opts.riotValue}" maxlength="{opts.maxlength}" class="form-control"> <div class="help-text" for="{opts.uid}"></div> <sep-validation ref="validation" key="{opts.key.split(⁗:⁗)[0]}" label="This"></sep-validation> </div>', 'sep-text-input input,[data-is="sep-text-input"] input{ width: 100%; } sep-text-input label,[data-is="sep-text-input"] label{ margin-bottom: 0; } sep-text-input .has-error .form-control,[data-is="sep-text-input"] .has-error .form-control{ border-width: 3px; } sep-text-input:last-child .form-group { margin: 0; } sep-text-input .tooltip,[data-is="sep-text-input"] .tooltip,sep-text-input .tooltip.bottom,[data-is="sep-text-input"] .tooltip.bottom{ position: static !important; width: 100%; margin: 0; padding: 0; } sep-text-input .tooltip-arrow,[data-is="sep-text-input"] .tooltip-arrow{ display: none; } sep-text-input .tooltip-inner,[data-is="sep-text-input"] .tooltip-inner{ max-width: 100%; text-align: left; }', '', function(opts) {
+riot.tag2('sep-text-input', '<div ref="formGroup" class="{form-group: true,       has-error: !isValid()}" title="{opts.helpText}"> <label for="{uid}" class="control-label"> {opts.label} </label> <input type="text" id="{uid}" name="{opts.key}" riot-value="{opts.riotValue}" maxlength="{opts.maxlength}" class="form-control"> <div class="help-text" for="{uid}"></div> <sep-validation ref="validation" key="{opts.key.split(⁗:⁗)[0]}" label="This"></sep-validation> </div>', 'sep-text-input input,[data-is="sep-text-input"] input{ width: 100%; } sep-text-input label,[data-is="sep-text-input"] label{ margin-bottom: 0; } sep-text-input .has-error .form-control,[data-is="sep-text-input"] .has-error .form-control{ border-width: 3px; } sep-text-input:last-child .form-group { margin: 0; } sep-text-input .tooltip,[data-is="sep-text-input"] .tooltip,sep-text-input .tooltip.bottom,[data-is="sep-text-input"] .tooltip.bottom{ position: static !important; width: 100%; margin: 0; padding: 0; } sep-text-input .tooltip-arrow,[data-is="sep-text-input"] .tooltip-arrow{ display: none; } sep-text-input .tooltip-inner,[data-is="sep-text-input"] .tooltip-inner{ max-width: 100%; text-align: left; }', '', function(opts) {
     this.isValid = () => !this.refs.validation || this.refs.validation.isValid();
     this.on('before-mount', () => {
       this.uid = Math.random().toString(16).slice(2);
